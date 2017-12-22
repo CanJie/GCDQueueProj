@@ -198,21 +198,82 @@
 #warning TODO <#message#>
         
         //发送异步网路请求
-        NSURL *url = [NSURL URLWithString:@""];
-        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:url] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSURL *URL = [NSURL URLWithString:@"http://dev-api.com/user/sendCode"];
+        NSDictionary *URLParams = @{@"ext_data": @"testparam",};
+        URL = NSURLByAppendingQueryParameters(URL, URLParams);
+        NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+        request.timeoutInterval=30.f;
+        request.HTTPMethod = @"POST";
+        [request addValue:@"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        NSDictionary *bodyObject=@{@"global": @{@"ssid": @"BB848"},
+                                   @"query": @{@"phone": @"1517",@"code":@"6666"}
+                                   };
+        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyObject options:kNilOptions error:NULL];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
             
             //回调到主队列
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (connectionError) {
-                    NSLog(@"发送异步请求响应错误信息：%@",connectionError);
+                    NSLog(@"发送异步请求响应错误信息：%@",connectionError.localizedDescription);
                 }else{
                     NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                    
+                    NSLog(@">>%@",dict);
                 }
             });
         }];
     });
 }
-
+- (void)test0{
+    //全局并发队列
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+#warning TODO <#待处理事项#>
+        
+        //构造请求信息
+        NSURL *URL = [NSURL URLWithString:@"http://dev-api.com/user/sendCode"];
+        NSDictionary *URLParams = @{@"ext_data": @"testparam",};
+        URL = NSURLByAppendingQueryParameters(URL, URLParams);
+        NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+        request.timeoutInterval=30.f;
+        request.HTTPMethod = @"POST";
+        [request addValue:@"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        NSDictionary *bodyObject=@{@"global": @{@"ssid": @"BB848"},
+                                   @"query": @{@"phone": @"1517",@"code":@"6666"}
+                                   };
+        request.HTTPBody=[NSJSONSerialization dataWithJSONObject:bodyObject options:kNilOptions error:NULL];
+        //发送异步网路请求
+        NSURLSessionConfiguration *sessionConfig=[NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession *session=[NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+        NSURLSessionDataTask *task=[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            //回调到主队列
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error == nil) {
+                    NSLog(@"URL Session Task Succeeded: HTTP %ld", ((NSHTTPURLResponse*)response).statusCode);
+                    NSDictionary *dict=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                    NSLog(@">>%@",dict);
+                }
+                else {
+                    NSLog(@"发送异步请求响应错误信息：%@",error.localizedDescription);
+                }
+            });
+        }];
+        [task resume];
+        [session finishTasksAndInvalidate];
+    });
+}
+/*
+ * Utils: Add this section before your class implementation
+ */
+static NSString *NSStringFromQueryParameters(NSDictionary* queryParameters){
+    NSMutableArray* parts = [NSMutableArray array];
+    [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        NSString *part = [NSString stringWithFormat: @"%@=%@",[key stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding],[value stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+        [parts addObject:part];
+    }];
+    return [parts componentsJoinedByString: @"&"];
+}
+static NSURL *NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryParameters){
+    NSString *URLString = [NSString stringWithFormat:@"%@?%@",[URL absoluteString],NSStringFromQueryParameters(queryParameters)];
+    return [NSURL URLWithString:URLString];
+}
 
 @end

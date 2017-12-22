@@ -15,6 +15,7 @@
 		C15B5DB81FE1149600C7B6FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C15B5DB61FE1149600C7B6FA /* LaunchScreen.storyboard */; };
 		C15B5DC31FE1149600C7B6FA /* GCDQueueProjTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C15B5DC21FE1149600C7B6FA /* GCDQueueProjTests.m */; };
 		C15B5DCE1FE1149600C7B6FA /* GCDQueueProjUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C15B5DCD1FE1149600C7B6FA /* GCDQueueProjUITests.m */; };
+		C1B8B7B41FECD57D0001B4B7 /* NSOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B8B7B31FECD57D0001B4B7 /* NSOperationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,9 @@
 		C15B5DC91FE1149600C7B6FA /* GCDQueueProjUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GCDQueueProjUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15B5DCD1FE1149600C7B6FA /* GCDQueueProjUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDQueueProjUITests.m; sourceTree = "<group>"; };
 		C15B5DCF1FE1149600C7B6FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1B8B7B11FECD5580001B4B7 /* NSOperationReadme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSOperationReadme.h; sourceTree = "<group>"; };
+		C1B8B7B21FECD57D0001B4B7 /* NSOperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOperationController.h; sourceTree = "<group>"; };
+		C1B8B7B31FECD57D0001B4B7 /* NSOperationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOperationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,9 @@
 				C15B5DAC1FE1149600C7B6FA /* AppDelegate.m */,
 				C15B5DAE1FE1149600C7B6FA /* ViewController.h */,
 				C15B5DAF1FE1149600C7B6FA /* ViewController.m */,
+				C1B8B7B21FECD57D0001B4B7 /* NSOperationController.h */,
+				C1B8B7B31FECD57D0001B4B7 /* NSOperationController.m */,
+				C1B8B7B11FECD5580001B4B7 /* NSOperationReadme.h */,
 				C15B5DB11FE1149600C7B6FA /* Main.storyboard */,
 				C15B5DB41FE1149600C7B6FA /* Assets.xcassets */,
 				C15B5DB61FE1149600C7B6FA /* LaunchScreen.storyboard */,
@@ -276,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B8B7B41FECD57D0001B4B7 /* NSOperationController.m in Sources */,
 				C15B5DB01FE1149600C7B6FA /* ViewController.m in Sources */,
 				C15B5DAD1FE1149600C7B6FA /* AppDelegate.m in Sources */,
 				C15B5DAA1FE1149600C7B6FA /* main.m in Sources */,
@@ -516,6 +524,7 @@
 				C15B5DD41FE1149600C7B6FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C15B5DD51FE1149600C7B6FA /* Build configuration list for PBXNativeTarget "GCDQueueProjTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +533,7 @@
 				C15B5DD71FE1149600C7B6FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C15B5DD81FE1149600C7B6FA /* Build configuration list for PBXNativeTarget "GCDQueueProjUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +542,7 @@
 				C15B5DDA1FE1149600C7B6FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
